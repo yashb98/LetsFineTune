@@ -1,0 +1,12 @@
+# Aider Configuration for SLM Fine-Tuning Project
+
+# Model preferences
+# model: anthropic/claude-sonnet-4-20250514
+
+# Conventions
+auto-commits: true
+gitignore: true
+pretty: true
+
+# File handling
+encoding: utf-8

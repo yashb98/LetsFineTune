@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments (using conda env "slm-finetune" instead)
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model checkpoints and large files
+models/
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+*.pt
+*.pth
+
+# Datasets (large files)
+data/raw/
+data/processed/
+
+# Experiment tracking
+wandb/
+runs/
+lightning_logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+
+# Claude Code local overrides (personal, not shared)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Hugging Face cache
+.cache/

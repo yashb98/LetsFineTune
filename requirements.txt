@@ -1,0 +1,35 @@
+# Core ML
+torch>=2.1.0
+transformers>=4.40.0
+datasets>=2.18.0
+accelerate>=0.28.0
+peft>=0.10.0
+trl>=0.8.0
+bitsandbytes>=0.43.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+sentencepiece>=0.2.0
+protobuf>=4.25.0
+
+# Evaluation
+rouge-score>=0.1.2
+nltk>=3.8.0
+evaluate>=0.4.0
+
+# Experiment tracking
+wandb>=0.16.0
+tensorboard>=2.16.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.66.0
+rich>=13.7.0
+
+# Code quality
+ruff>=0.3.0
+pytest>=8.0.0
+
+# Inference & export
+# llama-cpp-python>=0.2.0  # Uncomment for GGUF export

@@ -1,0 +1,37 @@
+{
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true
+  },
+  "project": "SLM Fine-Tuning",
+  "description": "Fine-tuning small language models with LoRA/QLoRA",
+  "conventions": {
+    "language": "python",
+    "style": "google",
+    "testFramework": "pytest"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "filepath=\"$CLAUDE_FILE_PATH\"; if [ -n \"$filepath\" ] && echo \"$filepath\" | grep -qE '\\.py$'; then ruff format \"$filepath\" 2>/dev/null && ruff check --fix --quiet \"$filepath\" 2>/dev/null; fi; exit 0"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "filepath=\"$CLAUDE_FILE_PATH\"; if [ -n \"$filepath\" ] && echo \"$filepath\" | grep -qE '\\.(env|env\\.local|env\\.production|env\\.staging)$|credentials\\.json$|secrets\\.ya?ml$|\\.pem$|\\.key$'; then echo 'BLOCKED: Cannot edit sensitive files (.env, credentials, keys). Manage these manually.' >&2; exit 2; fi; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

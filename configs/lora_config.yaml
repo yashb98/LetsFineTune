@@ -1,0 +1,70 @@
+# LoRA Fine-Tuning Configuration
+# Usage: python scripts/train.py --config configs/lora_config.yaml
+
+# Model
+model:
+  name: "microsoft/phi-2"                    # Base model from Hugging Face Hub
+  revision: "main"                           # Model revision/branch
+  torch_dtype: "bfloat16"                    # Model precision (bfloat16, float16, float32)
+  device_map: "auto"                         # Device placement strategy
+  attn_implementation: "flash_attention_2"   # Attention backend (flash_attention_2, sdpa, eager)
+
+# Quantization (for QLoRA)
+quantization:
+  enabled: true
+  bits: 4                                    # 4-bit or 8-bit quantization
+  quant_type: "nf4"                          # nf4 or fp4
+  double_quant: true                         # Nested quantization for memory savings
+
+# LoRA Configuration
+lora:
+  r: 16                                      # LoRA rank (8, 16, 32, 64)
+  alpha: 32                                  # LoRA alpha (typically 2x rank)
+  dropout: 0.05                              # LoRA dropout
+  target_modules:                            # Modules to apply LoRA to
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  bias: "none"                               # Bias training: none, all, lora_only
+  task_type: "CAUSAL_LM"                     # Task type
+
+# Dataset
+dataset:
+  name: "yahma/alpaca-cleaned"               # Dataset from HF Hub or local path
+  split: "train"
+  format: "alpaca"                           # alpaca, sharegpt, or custom
+  max_length: 2048                           # Maximum sequence length
+  val_split: 0.05                            # Validation split ratio
+  num_proc: 4                                # Preprocessing workers
+
+# Training
+training:
+  output_dir: "models/phi2-lora"
+  num_epochs: 3
+  per_device_batch_size: 4
+  gradient_accumulation_steps: 4             # Effective batch size = 4 * 4 = 16
+  learning_rate: 2.0e-4
+  lr_scheduler: "cosine"                     # cosine, linear, constant
+  warmup_ratio: 0.03
+  weight_decay: 0.001
+  max_grad_norm: 0.3                         # Gradient clipping
+  fp16: false
+  bf16: true
+  gradient_checkpointing: true               # Reduces VRAM at cost of speed
+  optim: "paged_adamw_32bit"                 # Optimizer
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  save_total_limit: 3                        # Keep N best checkpoints
+  seed: 42
+  report_to: "wandb"                         # wandb, tensorboard, none
+
+# Weights & Biases
+wandb:
+  project: "slm-finetuning"
+  run_name: null                             # Auto-generated if null
+  tags: ["lora", "phi-2"]

@@ -1,0 +1,55 @@
+# Full Fine-Tuning Configuration (No LoRA)
+# Usage: python scripts/train.py --config configs/full_finetune_config.yaml
+# For use on high-VRAM systems (Gigabyte AI Top Atom or similar)
+
+# Model
+model:
+  name: "microsoft/phi-2"
+  revision: "main"
+  torch_dtype: "bfloat16"
+  device_map: "auto"
+  attn_implementation: "flash_attention_2"
+
+# Quantization - disabled for full fine-tuning
+quantization:
+  enabled: false
+
+# LoRA - not used, but kept for config compatibility
+lora:
+  r: 0  # Set to 0 to skip LoRA and do full fine-tuning
+
+# Dataset
+dataset:
+  name: "yahma/alpaca-cleaned"
+  split: "train"
+  format: "alpaca"
+  max_length: 2048
+  val_split: 0.05
+  num_proc: 8
+
+# Training - aggressive settings for high-end hardware
+training:
+  output_dir: "models/phi2-full"
+  num_epochs: 3
+  per_device_batch_size: 8
+  gradient_accumulation_steps: 2             # Effective batch size = 16
+  learning_rate: 2.0e-5                      # Lower LR for full fine-tuning
+  lr_scheduler: "cosine"
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  fp16: false
+  bf16: true
+  gradient_checkpointing: true
+  optim: "adamw_torch"
+  logging_steps: 10
+  save_steps: 200
+  eval_steps: 200
+  save_total_limit: 3
+  seed: 42
+  report_to: "wandb"
+
+wandb:
+  project: "slm-finetuning"
+  run_name: null
+  tags: ["full-finetune", "phi-2"]
