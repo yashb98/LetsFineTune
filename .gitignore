@@ -50,11 +50,13 @@ CLAUDE.md
 CLAUDE.local.md
 .claude/
 
-# AI tool rule files
+# AI tool config files
 .clinerules
 .cursorrules
 .windsurfrules
 .github/copilot-instructions.md
+.aider.conf.yml
+.mcp.json
 
 # Unsloth compiled cache
 unsloth_compiled_cache/
