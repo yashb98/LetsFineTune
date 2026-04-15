@@ -43,9 +43,14 @@ python scripts/evaluate.py --model models/<checkpoint> --dataset data/processed/
 ## Tech Stack
 
 - **Frameworks:** PyTorch, Hugging Face Transformers, PEFT, TRL, Unsloth
-- **Training:** LoRA/QLoRA with bitsandbytes quantization
-- **Tracking:** Weights & Biases
-- **Compute:** CUDA-enabled GPUs
+- **Training:** LoRA/QLoRA, bf16 mixed precision, bitsandbytes quantization
+- **Data:** Hugging Face Datasets, pandas, NumPy
+- **Evaluation:** ROUGE, BLEU (NLTK), EvalPlus (HumanEval), GSM8K
+- **Tracking:** Weights & Biases, TensorBoard
+- **Visualization:** Matplotlib
+- **Compute:** CUDA-enabled GPUs (Accelerate)
+- **Environment:** Conda, Jupyter Notebooks
+- **Code Quality:** Ruff, pytest
 
 ## License
 
