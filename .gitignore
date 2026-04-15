@@ -45,9 +45,23 @@ Thumbs.db
 .env
 .env.local
 
-# Claude Code local overrides (personal, not shared)
+# Claude Code (all config and rule files)
+CLAUDE.md
 CLAUDE.local.md
-.claude/settings.local.json
+.claude/
+
+# AI tool rule files
+.clinerules
+.cursorrules
+.windsurfrules
+.github/copilot-instructions.md
+
+# Unsloth compiled cache
+unsloth_compiled_cache/
+notebooks/unsloth_compiled_cache/
+
+# Docs (generated)
+docs/
 
 # Hugging Face cache
 .cache/
