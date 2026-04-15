@@ -34,7 +34,7 @@ conda activate slm-finetune
 pip install -r requirements.txt
 
 # Run a fine-tuning job
-python scripts/train.py --config configs/lora_8bit_config.yaml
+python scripts/train.py --config configs/lora_config.yaml
 
 # Evaluate a checkpoint
 python scripts/evaluate.py --model models/<checkpoint> --dataset data/processed/eval.jsonl
